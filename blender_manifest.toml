@@ -1,0 +1,30 @@
+schema_version = "1.0.0"
+
+id = "moldboxer_silicone"
+name = "Moldboxer Silicone"
+version = "2.3.2"
+
+tagline = "Generate silicone mold systems"
+description = "Generate silicone mold systems"
+
+maintainer = "MOLDBOXER, S.L."
+type = "add-on"
+
+license = ["GPL-3.0-or-later"]
+
+blender_version_min = "4.5.0"
+
+tags = ["Modeling", "3D View"]
+
+[permissions]
+network = "Authenticate accounts, check updates, and process mold geometry"
+files = "Import and export model files"
+clipboard = "Copy operator logs for support"
+
+[build]
+paths_exclude_pattern = [
+    "__pycache__/",
+    "/.git/",
+    "/*.zip",
+    "/moldboxer_updater_extension/",
+]
