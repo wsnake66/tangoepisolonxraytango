@@ -1,0 +1,76 @@
+"""Fixture vocabulary: a workholding device, never a light fitting or accessory."""
+
+KEYS = (
+    'Your fixture is ready',
+    'Inspect the fixture and make any final checks.',
+    'Add a base below the generated fixture',
+    'Add counterbored screw holes at the fixture base corners',
+    'Clearance between the model and the generated fixture',
+    'Fixture',
+    'Fixture wrapper voxel size, speed, and surface detail',
+    'Generate Fixture',
+    'Height of the fixture base',
+    'No mesh object available for fixture generation.',
+    'Outer shape used for the generated fixture',
+    'Wall thickness around the fixture clearance wrapper',
+    'Adapt the fixture shape to the model',
+    'Build the fixture with a cube outer shape',
+    'Build the fixture with a cylinder outer shape',
+    'Creates a fitted fixture around the model with a selectable outer shape.',
+    'Generate the selected fixture shape around the model',
+    'Position and rotate the fixture height plane, adjust the fixture settings.',
+    'Set the fixture height',
+    'Adding fixture base',
+    'Clearing adapted fixture undercuts',
+    'Clearing fixture undercuts',
+    'Cutting fixture height',
+    'Finalizing fixture',
+    'Generating fixture body',
+    'Preparing adapted fixture bottom',
+    'Subtracting fixture clearance',
+    'Trimming adapted fixture bottom',
+)
+
+_ROWS = {
+    'ES': (
+        'Tu fijación está lista|Inspecciona la fijación y realiza las comprobaciones finales.|Añadir una base debajo de la fijación generada|Añadir orificios para tornillos con cajeado cilíndrico en las esquinas de la base de la fijación|Holgura entre el modelo y la fijación generada|Fijación|Tamaño de vóxel, velocidad y detalle de superficie de la envolvente de la fijación|Generar fijación|Altura de la base de la fijación|No hay ningún objeto de malla disponible para generar la fijación.|Forma exterior de la fijación generada|Grosor de pared alrededor de la envolvente de holgura de la fijación|Adaptar la forma de la fijación al modelo|Crear la fijación con una forma exterior cúbica|Crear la fijación con una forma exterior cilíndrica|Crea una fijación ajustada alrededor del modelo con una forma exterior seleccionable.|Generar la forma de fijación seleccionada alrededor del modelo|Coloca y gira el plano de altura de la fijación y ajusta sus parámetros.|Define la altura de la fijación|Añadiendo la base de la fijación|Eliminando contrasalidas de la fijación adaptada|Eliminando contrasalidas de la fijación|Recortando la altura de la fijación|Finalizando la fijación|Generando el cuerpo de la fijación|Preparando la parte inferior de la fijación adaptada|Sustrayendo el volumen de holgura de la fijación|Recortando la parte inferior de la fijación adaptada'
+    ),
+    'PT': (
+        'A sua fixação está pronta|Inspecione a fixação e faça as verificações finais.|Adicionar uma base por baixo da fixação gerada|Adicionar furos para parafusos com rebaixo cilíndrico nos cantos da base da fixação|Folga entre o modelo e a fixação gerada|Fixação|Tamanho do vóxel, velocidade e detalhe da superfície do invólucro da fixação|Gerar fixação|Altura da base da fixação|Não existe nenhum objeto de malha disponível para gerar a fixação.|Forma exterior da fixação gerada|Espessura da parede em torno do invólucro de folga da fixação|Adaptar a forma da fixação ao modelo|Criar a fixação com uma forma exterior cúbica|Criar a fixação com uma forma exterior cilíndrica|Cria uma fixação ajustada em torno do modelo com uma forma exterior selecionável.|Gerar a forma de fixação selecionada em torno do modelo|Posicione e rode o plano de altura da fixação e ajuste os seus parâmetros.|Defina a altura da fixação|A adicionar a base da fixação|A eliminar reentrâncias da fixação adaptada|A eliminar reentrâncias da fixação|A recortar a altura da fixação|A finalizar a fixação|A gerar o corpo da fixação|A preparar a parte inferior da fixação adaptada|A subtrair o volume de folga da fixação|A recortar a parte inferior da fixação adaptada'
+    ),
+    'PT_BR': (
+        'Sua fixação está pronta|Inspecione a fixação e faça as verificações finais.|Adicionar uma base abaixo da fixação gerada|Adicionar furos para parafusos com rebaixo cilíndrico nos cantos da base da fixação|Folga entre o modelo e a fixação gerada|Fixação|Tamanho do voxel, velocidade e detalhe da superfície do invólucro da fixação|Gerar fixação|Altura da base da fixação|Nenhum objeto de malha disponível para gerar a fixação.|Forma externa da fixação gerada|Espessura da parede ao redor do invólucro de folga da fixação|Adaptar a forma da fixação ao modelo|Criar a fixação com uma forma externa cúbica|Criar a fixação com uma forma externa cilíndrica|Cria uma fixação ajustada ao redor do modelo com uma forma externa selecionável.|Gerar a forma de fixação selecionada ao redor do modelo|Posicione e gire o plano de altura da fixação e ajuste seus parâmetros.|Defina a altura da fixação|Adicionando a base da fixação|Eliminando reentrâncias da fixação adaptada|Eliminando reentrâncias da fixação|Recortando a altura da fixação|Finalizando a fixação|Gerando o corpo da fixação|Preparando a parte inferior da fixação adaptada|Subtraindo o volume de folga da fixação|Recortando a parte inferior da fixação adaptada'
+    ),
+    'DE': (
+        'Ihre Vorrichtung ist fertig|Überprüfen Sie die Vorrichtung und führen Sie die abschließenden Kontrollen durch.|Eine Basis unter der erzeugten Vorrichtung hinzufügen|Schraubenlöcher mit Zylindersenkung an den Ecken der Vorrichtungsbasis hinzufügen|Spiel zwischen dem Modell und der erzeugten Vorrichtung|Vorrichtung|Voxelgröße, Geschwindigkeit und Oberflächendetail der Vorrichtungshülle|Vorrichtung erzeugen|Höhe der Vorrichtungsbasis|Kein Mesh-Objekt zum Erzeugen der Vorrichtung verfügbar.|Außenform der erzeugten Vorrichtung|Wandstärke um die Abstandshülle der Vorrichtung|Die Vorrichtungsform an das Modell anpassen|Die Vorrichtung mit würfelförmiger Außenform erstellen|Die Vorrichtung mit zylindrischer Außenform erstellen|Erstellt eine passgenaue Vorrichtung um das Modell mit wählbarer Außenform.|Die gewählte Vorrichtungsform um das Modell erzeugen|Positionieren und drehen Sie die Höhenebene der Vorrichtung und passen Sie ihre Einstellungen an.|Die Höhe der Vorrichtung festlegen|Vorrichtungsbasis wird hinzugefügt|Hinterschneidungen der angepassten Vorrichtung werden entfernt|Hinterschneidungen der Vorrichtung werden entfernt|Vorrichtungshöhe wird zugeschnitten|Vorrichtung wird fertiggestellt|Vorrichtungskörper wird erzeugt|Unterseite der angepassten Vorrichtung wird vorbereitet|Abstandsvolumen der Vorrichtung wird abgezogen|Unterseite der angepassten Vorrichtung wird zugeschnitten'
+    ),
+    'FR': (
+        'Votre dispositif de maintien est prêt|Inspectez le dispositif de maintien et effectuez les dernières vérifications.|Ajouter une base sous le dispositif de maintien généré|Ajouter des trous de vis avec lamage cylindrique aux coins de la base du dispositif de maintien|Jeu entre le modèle et le dispositif de maintien généré|Dispositif de maintien|Taille des voxels, vitesse et détail de surface de l’enveloppe du dispositif de maintien|Générer le dispositif de maintien|Hauteur de la base du dispositif de maintien|Aucun objet maillé disponible pour générer le dispositif de maintien.|Forme extérieure du dispositif de maintien généré|Épaisseur de paroi autour de l’enveloppe de jeu du dispositif de maintien|Adapter la forme du dispositif de maintien au modèle|Créer le dispositif de maintien avec une forme extérieure cubique|Créer le dispositif de maintien avec une forme extérieure cylindrique|Crée un dispositif de maintien ajusté autour du modèle avec une forme extérieure au choix.|Générer la forme de dispositif de maintien sélectionnée autour du modèle|Positionnez et faites pivoter le plan de hauteur du dispositif de maintien, puis ajustez ses paramètres.|Définir la hauteur du dispositif de maintien|Ajout de la base du dispositif de maintien|Suppression des contre-dépouilles du dispositif de maintien adapté|Suppression des contre-dépouilles du dispositif de maintien|Découpe à la hauteur du dispositif de maintien|Finalisation du dispositif de maintien|Génération du corps du dispositif de maintien|Préparation du dessous du dispositif de maintien adapté|Soustraction du volume de jeu du dispositif de maintien|Découpe du dessous du dispositif de maintien adapté'
+    ),
+    'TR': (
+        'Fikstürünüz hazır|Fikstürü inceleyin ve son kontrolleri yapın.|Oluşturulan fikstürün altına bir taban ekle|Fikstür tabanının köşelerine silindirik havşalı vida delikleri ekle|Model ile oluşturulan fikstür arasındaki boşluk|Fikstür|Fikstür kılıfının voksel boyutu, hızı ve yüzey ayrıntısı|Fikstür oluştur|Fikstür tabanının yüksekliği|Fikstür oluşturmak için kullanılabilir bir ağ nesnesi yok.|Oluşturulan fikstürün dış şekli|Fikstür boşluk kılıfının etrafındaki duvar kalınlığı|Fikstür şeklini modele uyarla|Fikstürü küp dış şekliyle oluştur|Fikstürü silindir dış şekliyle oluştur|Modelin etrafında seçilebilir dış şekle sahip, modele uygun bir fikstür oluşturur.|Seçilen fikstür şeklini modelin etrafında oluştur|Fikstür yükseklik düzlemini konumlandırıp döndürün ve fikstür ayarlarını düzenleyin.|Fikstür yüksekliğini ayarla|Fikstür tabanı ekleniyor|Uyarlanmış fikstürün ters açıları temizleniyor|Fikstürün ters açıları temizleniyor|Fikstür yüksekliği kesiliyor|Fikstür tamamlanıyor|Fikstür gövdesi oluşturuluyor|Uyarlanmış fikstürün alt kısmı hazırlanıyor|Fikstürün boşluk hacmi çıkarılıyor|Uyarlanmış fikstürün alt kısmı kırpılıyor'
+    ),
+    'IT': (
+        'Il dispositivo di fissaggio è pronto|Ispeziona il dispositivo di fissaggio ed esegui le verifiche finali.|Aggiungere una base sotto il dispositivo di fissaggio generato|Aggiungere fori per viti con lamatura cilindrica agli angoli della base del dispositivo di fissaggio|Gioco tra il modello e il dispositivo di fissaggio generato|Dispositivo di fissaggio|Dimensione del voxel, velocità e dettaglio superficiale dell’involucro del dispositivo di fissaggio|Genera dispositivo di fissaggio|Altezza della base del dispositivo di fissaggio|Nessun oggetto mesh disponibile per generare il dispositivo di fissaggio.|Forma esterna del dispositivo di fissaggio generato|Spessore della parete attorno all’involucro di gioco del dispositivo di fissaggio|Adattare la forma del dispositivo di fissaggio al modello|Creare il dispositivo di fissaggio con una forma esterna cubica|Creare il dispositivo di fissaggio con una forma esterna cilindrica|Crea un dispositivo di fissaggio aderente attorno al modello con una forma esterna selezionabile.|Generare la forma del dispositivo di fissaggio selezionata attorno al modello|Posiziona e ruota il piano di altezza del dispositivo di fissaggio e regola le sue impostazioni.|Imposta l’altezza del dispositivo di fissaggio|Aggiunta della base del dispositivo di fissaggio|Eliminazione dei sottosquadri del dispositivo di fissaggio adattato|Eliminazione dei sottosquadri del dispositivo di fissaggio|Taglio all’altezza del dispositivo di fissaggio|Completamento del dispositivo di fissaggio|Generazione del corpo del dispositivo di fissaggio|Preparazione della parte inferiore del dispositivo di fissaggio adattato|Sottrazione del volume di gioco del dispositivo di fissaggio|Rifilatura della parte inferiore del dispositivo di fissaggio adattato'
+    ),
+    'RU': (
+        'Ваше приспособление готово|Осмотрите приспособление и выполните окончательные проверки.|Добавить основание под созданным приспособлением|Добавить отверстия под винты с цилиндрическими углублениями в углах основания приспособления|Зазор между моделью и созданным приспособлением|Приспособление|Размер вокселя, скорость и детализация поверхности оболочки приспособления|Создать приспособление|Высота основания приспособления|Нет объекта-сетки для создания приспособления.|Внешняя форма создаваемого приспособления|Толщина стенки вокруг оболочки зазора приспособления|Адаптировать форму приспособления к модели|Создать приспособление с кубической внешней формой|Создать приспособление с цилиндрической внешней формой|Создаёт точно подогнанное приспособление вокруг модели с выбираемой внешней формой.|Создать приспособление выбранной формы вокруг модели|Расположите и поверните плоскость высоты приспособления, затем настройте его параметры.|Задайте высоту приспособления|Добавление основания приспособления|Удаление поднутрений адаптированного приспособления|Удаление поднутрений приспособления|Обрезка приспособления по высоте|Завершение приспособления|Создание корпуса приспособления|Подготовка нижней части адаптированного приспособления|Вычитание объёма зазора приспособления|Обрезка нижней части адаптированного приспособления'
+    ),
+    'JA': (
+        '治具が完成しました|治具を点検し、最終確認を行ってください。|生成された治具の下に台座を追加|治具の台座の隅に座ぐり付きねじ穴を追加|モデルと生成された治具の間の隙間|治具|治具外殻のボクセルサイズ、速度、表面の詳細度|治具を生成|治具の台座の高さ|治具の生成に使用できるメッシュオブジェクトがありません。|生成する治具の外形|治具の隙間を確保する外殻の周囲の壁厚|治具の形状をモデルに合わせる|立方体の外形で治具を作成|円柱の外形で治具を作成|選択可能な外形で、モデルに合わせた治具をモデルの周囲に作成します。|選択した外形の治具をモデルの周囲に生成|治具の高さ平面を配置・回転し、治具の設定を調整してください。|治具の高さを設定|治具の台座を追加中|形状適合治具のアンダーカットを除去中|治具のアンダーカットを除去中|治具を指定の高さで切断中|治具を仕上げ中|治具本体を生成中|形状適合治具の底部を準備中|治具の隙間の体積を差し引き中|形状適合治具の底部をトリミング中'
+    ),
+    'KO': (
+        '고정구가 완성되었습니다|고정구를 검사하고 최종 확인을 수행하세요.|생성된 고정구 아래에 베이스 추가|고정구 베이스 모서리에 카운터보어 나사 구멍 추가|모델과 생성된 고정구 사이의 간격|고정구|고정구 외피의 복셀 크기, 속도 및 표면 세부 수준|고정구 생성|고정구 베이스의 높이|고정구를 생성할 수 있는 메시 객체가 없습니다.|생성할 고정구의 외형|고정구 간격 외피 주변의 벽 두께|고정구 형상을 모델에 맞춤|정육면체 외형으로 고정구 생성|원기둥 외형으로 고정구 생성|선택한 외형을 사용하여 모델에 맞는 고정구를 모델 주위에 생성합니다.|선택한 고정구 형상을 모델 주위에 생성|고정구 높이 평면을 배치하고 회전한 후 고정구 설정을 조정하세요.|고정구 높이 설정|고정구 베이스 추가 중|모델에 맞춘 고정구의 언더컷 제거 중|고정구의 언더컷 제거 중|고정구 높이 절단 중|고정구 마무리 중|고정구 본체 생성 중|모델에 맞춘 고정구의 하단 준비 중|고정구의 간격 부피 빼기 중|모델에 맞춘 고정구의 하단 다듬기 중'
+    ),
+    'AR': (
+        'أداة التثبيت جاهزة|افحص أداة التثبيت وأجرِ الفحوص النهائية.|إضافة قاعدة أسفل أداة التثبيت المُنشأة|إضافة ثقوب براغٍ ذات تجاويف أسطوانية للرؤوس عند زوايا قاعدة أداة التثبيت|الخلوص بين النموذج وأداة التثبيت المُنشأة|أداة تثبيت|حجم الفوكسل والسرعة وتفاصيل السطح لغلاف أداة التثبيت|إنشاء أداة تثبيت|ارتفاع قاعدة أداة التثبيت|لا يوجد مجسم شبكي متاح لإنشاء أداة التثبيت.|الشكل الخارجي لأداة التثبيت المُنشأة|سمك الجدار حول غلاف خلوص أداة التثبيت|تكييف شكل أداة التثبيت مع النموذج|إنشاء أداة التثبيت بشكل خارجي مكعب|إنشاء أداة التثبيت بشكل خارجي أسطواني|ينشئ أداة تثبيت ملائمة حول النموذج مع إمكانية اختيار الشكل الخارجي.|إنشاء أداة تثبيت بالشكل المحدد حول النموذج|ضع مستوى ارتفاع أداة التثبيت ودوّره، ثم اضبط إعداداتها.|حدد ارتفاع أداة التثبيت|جارٍ إضافة قاعدة أداة التثبيت|جارٍ إزالة التعشيقات العكسية من أداة التثبيت المتكيفة|جارٍ إزالة التعشيقات العكسية من أداة التثبيت|جارٍ قص أداة التثبيت حسب الارتفاع|جارٍ إتمام أداة التثبيت|جارٍ إنشاء جسم أداة التثبيت|جارٍ تجهيز أسفل أداة التثبيت المتكيفة|جارٍ طرح حجم الخلوص من أداة التثبيت|جارٍ تشذيب أسفل أداة التثبيت المتكيفة'
+    ),
+    'ZH': (
+        '夹具已准备就绪|检查夹具并完成最后的检查。|在生成的夹具下方添加底座|在夹具底座的角部添加带圆柱形沉孔的螺钉孔|模型与生成的夹具之间的间隙|夹具|夹具外壳的体素大小、速度和表面细节|生成夹具|夹具底座的高度|没有可用于生成夹具的网格对象。|生成的夹具所用的外形|夹具间隙外壳周围的壁厚|使夹具形状适应模型|以立方体外形创建夹具|以圆柱体外形创建夹具|在模型周围创建贴合的夹具，并可选择外形。|在模型周围生成所选形状的夹具|定位并旋转夹具高度平面，然后调整夹具设置。|设置夹具高度|正在添加夹具底座|正在清除适形夹具的倒扣|正在清除夹具的倒扣|正在按高度裁切夹具|正在完成夹具|正在生成夹具主体|正在准备适形夹具的底部|正在减去夹具的间隙体积|正在修剪适形夹具的底部'
+    ),
+}
+
+TRANSLATIONS = {
+    language: dict(zip(KEYS, row.split('|'), strict=True))
+    for language, row in _ROWS.items()
+}
