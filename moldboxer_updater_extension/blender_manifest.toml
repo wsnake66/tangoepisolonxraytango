@@ -1,0 +1,20 @@
+schema_version = "1.0.0"
+
+id = "moldboxer_updater"
+name = "Moldboxer Updater"
+version = "1.0.4"
+
+tagline = "Install Moldboxer updates without self-unregistering"
+description = "Checks the Moldboxer repository and safely updates Moldboxer"
+
+maintainer = "MOLDBOXER, S.L."
+type = "add-on"
+
+license = ["GPL-3.0-or-later"]
+
+blender_version_min = "4.5.0"
+
+tags = ["Modeling", "3D View"]
+
+[permissions]
+network = "Check the Moldboxer repository and download Moldboxer updates"
