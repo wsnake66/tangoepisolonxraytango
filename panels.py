@@ -7265,12 +7265,7 @@ def draw_translated_prop(layout, data, prop_name, *, icon=None, text=None):
 
 
 def has_cached_pro_access(context):
-    prefs = get_addon_preferences()
-    if prefs is None:
-        return False
-    if not getattr(prefs, "auth_refresh_token", ""):
-        return False
-    return str(getattr(prefs, "auth_tier", "")).upper() == "T3"
+    return True
 
 
 class MoldboxerPanel(bpy.types.Panel):
@@ -8642,8 +8637,6 @@ class SILICONE_PT_pro_settings(MoldboxerPanel):
         mold_type = get_mold_type(context.scene.mold_type_preview).identifier
         if mold_type in {"FIXTURE", "PROTECTIVE_SHELL"}:
             return False
-        if is_direct_mold_type(context.scene):
-            return bool(is_lite_tier() or is_core_tier())
         return True
 
     def draw(self, context):

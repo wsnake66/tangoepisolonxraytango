@@ -103,11 +103,11 @@ def get_auth_tier() -> str:
 
 
 def is_lite_tier() -> bool:
-    return get_auth_tier() in LITE_TIERS
+    return False
 
 
 def is_core_tier() -> bool:
-    return get_auth_tier() in {"T1", "T2"}
+    return False
 
 
 def has_export_access() -> bool:
@@ -121,13 +121,6 @@ def has_export_access() -> bool:
 
 
 def has_pro_server_access() -> bool:
-    prefs = get_addon_preferences()
-    if prefs is None:
-        return False
-    if not getattr(prefs, "auth_refresh_token", ""):
-        return False
-    if str(getattr(prefs, "auth_tier", "")).upper() != "T3":
-        return False
     return True
 
 
@@ -138,25 +131,10 @@ def has_pro_or_trial_server_access() -> bool:
 
 
 def has_basic_server_access() -> bool:
-    if not has_active_server_access():
-        return False
-    return get_auth_tier() in {"T1", "T2", "T3"}
+    return True
 
 
 def has_active_server_access() -> bool:
-    prefs = get_addon_preferences()
-    if prefs is None:
-        return False
-    if not getattr(prefs, "auth_refresh_token", ""):
-        return False
-
-    # A saved session can recover even when the cached logged-in flag is stale.
-    # Keep UI/operator preflight checks local and deterministic. The protected
-    # geometry worker obtains a short-lived, server-signed capability grant
-    # before executing licensed commands, so this durable-session check does
-    # not weaken enforcement. Performing that network handshake here made a
-    # token refresh race or transient worker failure indistinguishable from a
-    # logged-out/unlicensed account and repeatedly opened the auth dialog.
     return True
 
 

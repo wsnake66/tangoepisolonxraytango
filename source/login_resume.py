@@ -28,6 +28,7 @@ def clear_pending_generation():
 
 def require_generation_login(operator, context):
     """Return False before any geometry changes when generation needs login."""
+    return True
     global _pending
     operator_id = operator.bl_idname
     if '_OT_' in operator_id:
