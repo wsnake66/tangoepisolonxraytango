@@ -1,0 +1,98 @@
+diff --git a/panels.py b/panels.py
+index cf68720..f55f89a 100644
+--- a/panels.py
++++ b/panels.py
+@@ -7265,12 +7265,7 @@ def draw_translated_prop(layout, data, prop_name, *, icon=None, text=None):
+ 
+ 
+ def has_cached_pro_access(context):
+-    prefs = get_addon_preferences()
+-    if prefs is None:
+-        return False
+-    if not getattr(prefs, "auth_refresh_token", ""):
+-        return False
+-    return str(getattr(prefs, "auth_tier", "")).upper() == "T3"
++    return True
+ 
+ 
+ class MoldboxerPanel(bpy.types.Panel):
+@@ -8642,8 +8637,6 @@ class SILICONE_PT_pro_settings(MoldboxerPanel):
+         mold_type = get_mold_type(context.scene.mold_type_preview).identifier
+         if mold_type in {"FIXTURE", "PROTECTIVE_SHELL"}:
+             return False
+-        if is_direct_mold_type(context.scene):
+-            return bool(is_lite_tier() or is_core_tier())
+         return True
+ 
+     def draw(self, context):
+diff --git a/source/login_resume.py b/source/login_resume.py
+index 8e8180f..07e4c49 100644
+--- a/source/login_resume.py
++++ b/source/login_resume.py
+@@ -28,6 +28,7 @@ def clear_pending_generation():
+ 
+ def require_generation_login(operator, context):
+     """Return False before any geometry changes when generation needs login."""
++    return True
+     global _pending
+     operator_id = operator.bl_idname
+     if '_OT_' in operator_id:
+diff --git a/source/operator_access.py b/source/operator_access.py
+index d69b920..c6ee788 100644
+--- a/source/operator_access.py
++++ b/source/operator_access.py
+@@ -103,11 +103,11 @@ def get_auth_tier() -> str:
+ 
+ 
+ def is_lite_tier() -> bool:
+-    return get_auth_tier() in LITE_TIERS
++    return False
+ 
+ 
+ def is_core_tier() -> bool:
+-    return get_auth_tier() in {"T1", "T2"}
++    return False
+ 
+ 
+ def has_export_access() -> bool:
+@@ -121,13 +121,6 @@ def has_export_access() -> bool:
+ 
+ 
+ def has_pro_server_access() -> bool:
+-    prefs = get_addon_preferences()
+-    if prefs is None:
+-        return False
+-    if not getattr(prefs, "auth_refresh_token", ""):
+-        return False
+-    if str(getattr(prefs, "auth_tier", "")).upper() != "T3":
+-        return False
+     return True
+ 
+ 
+@@ -138,25 +131,10 @@ def has_pro_or_trial_server_access() -> bool:
+ 
+ 
+ def has_basic_server_access() -> bool:
+-    if not has_active_server_access():
+-        return False
+-    return get_auth_tier() in {"T1", "T2", "T3"}
++    return True
+ 
+ 
+ def has_active_server_access() -> bool:
+-    prefs = get_addon_preferences()
+-    if prefs is None:
+-        return False
+-    if not getattr(prefs, "auth_refresh_token", ""):
+-        return False
+-
+-    # A saved session can recover even when the cached logged-in flag is stale.
+-    # Keep UI/operator preflight checks local and deterministic. The protected
+-    # geometry worker obtains a short-lived, server-signed capability grant
+-    # before executing licensed commands, so this durable-session check does
+-    # not weaken enforcement. Performing that network handshake here made a
+-    # token refresh race or transient worker failure indistinguishable from a
+-    # logged-out/unlicensed account and repeatedly opened the auth dialog.
+     return True
+ 
+ 
