@@ -935,6 +935,12 @@ def initialize_default_language_from_country(
             logger.debug("Could not store language detection attempt", exc_info=True)
 
 
+def update_offline_mode_preference(self, context):
+    from .source import network_guard
+
+    network_guard.set_enabled(bool(getattr(self, "offline_mode", True)))
+
+
 class MoldboxerAddonPreferences(bpy.types.AddonPreferences):
     bl_idname = __package__
 
@@ -983,6 +989,14 @@ class MoldboxerAddonPreferences(bpy.types.AddonPreferences):
         ),
         default=True,
         update=update_moldboxer_theme_preference,
+    )
+    offline_mode: BoolProperty(  # type: ignore
+        name="Offline Mode",
+        description=t(
+            "Block all outbound Moldboxer network connections (local connections stay allowed)"
+        ),
+        default=True,
+        update=update_offline_mode_preference,
     )
     dev_mode: BoolProperty(  # type: ignore
         name="Dev Mode",
@@ -1366,7 +1380,12 @@ def schedule_registered_panel_refresh():
 
 def register():
     from .source.scene_units import register_scene_units
+    from .source import network_guard
 
+    network_guard.install()
+    network_guard.set_enabled(
+        bool(getattr(get_theme_preferences(), "offline_mode", True))
+    )
     register_scene_units(sync_account_unit_display)
     _unregister_legacy_file_handler()
     set_windows_app_user_model_id()
@@ -1435,6 +1454,9 @@ def unregister():
     from .source.login_resume import clear_pending_generation
 
     clear_pending_generation()
+    from .source import network_guard
+
+    network_guard.uninstall()
     from .source.scene_units import unregister_scene_units
 
     unregister_scene_units()
