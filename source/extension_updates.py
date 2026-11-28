@@ -432,24 +432,7 @@ def has_extension_update_available(force: bool = False) -> bool:
 
 
 def block_if_extension_update_available(context, report) -> bool:
-    """Show the required-update dialog and block the requested action."""
-    update_available, update_version = get_extension_update_status(force=True)
-    if not update_available:
-        return False
-
-    try:
-        bpy.ops.silicone.update_available_dialog("INVOKE_DEFAULT")
-    except Exception:
-        version_suffix = f" ({update_version})" if update_version else ""
-        report(
-            {"ERROR"},
-            t(
-                "Moldboxer update required{version_suffix}. Install it before starting a new mold.",
-                version_suffix=version_suffix,
-            ),
-        )
-        open_extension_updates(context, report)
-    return True
+    return False
 
 
 def _background_extension_update_check():
