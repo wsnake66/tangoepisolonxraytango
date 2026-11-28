@@ -71,7 +71,7 @@ def _add_interface_keys(context, props, lower, upper, mins, maxs, plane_z):
             apply_boolean(upper, socket, 'DIFFERENCE')
             remove(socket)
 
-    if props.master_base_pin and planes:
+    if props.master_base_pin:
         center = (mins + maxs) / 2
         height = props.key_height * 2 + props.master_pin_tolerance * 2
         pin = add_cone(
