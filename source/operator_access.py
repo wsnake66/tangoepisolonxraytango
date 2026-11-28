@@ -133,8 +133,10 @@ def has_active_server_access() -> bool:
 
 
 def show_active_membership_required(operator: bpy.types.Operator) -> None:
-    operator.report({"WARNING"}, t("License required"))
-    _invoke_access_dialog_once("silicone.auth_required_dialog")
+    operator.report(
+        {"WARNING"},
+        t("This operation requires the licensed Moldboxer Worker engine."),
+    )
 
 
 def show_basic_membership_required() -> None:
@@ -160,17 +162,7 @@ def _release_access_dialog_lock(dialog_idname: str):
 def _invoke_access_dialog_once(
     dialog_idname: str, cooldown_seconds: float = 0.35
 ) -> None:
-    if _ACCESS_DIALOG_LOCKS.get(dialog_idname, False):
-        return
-    _ACCESS_DIALOG_LOCKS[dialog_idname] = True
-    try:
-        module_name, operator_name = dialog_idname.split(".", 1)
-        getattr(getattr(bpy.ops, module_name), operator_name)("INVOKE_DEFAULT")
-    finally:
-        bpy.app.timers.register(
-            _release_access_dialog_lock(dialog_idname),
-            first_interval=cooldown_seconds,
-        )
+    return
 
 
 def apply_lite_access_defaults(scene: bpy.types.Scene | None) -> None:

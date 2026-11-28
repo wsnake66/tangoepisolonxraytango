@@ -393,9 +393,9 @@ def get_geometry_access_token(force_refresh: bool = False) -> str:
         raise NearestSurfaceWorkerError(
             "ServiceConnectionError: Could not renew the Moldboxer session. Please try again."
         )
-    if not bpy.app.timers.is_registered(_open_geometry_login_dialog):
-        bpy.app.timers.register(_open_geometry_login_dialog, first_interval=0.25)
-    raise NearestSurfaceWorkerError("Your Moldboxer session has expired. Please log in again.")
+    raise NearestSurfaceWorkerError(
+        "This operation requires the licensed Moldboxer Worker engine."
+    )
 
 
 def start_pro_trial() -> tuple[bool, str]:
