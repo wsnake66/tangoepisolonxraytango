@@ -504,20 +504,7 @@ def _finish_background_extension_update_check():
 
 
 def schedule_extension_update_check() -> bool:
-    """Refresh the Moldboxer repository after registration and every 20 minutes."""
-    try:
-        is_registered = getattr(bpy.app.timers, "is_registered", None)
-        if callable(is_registered) and is_registered(
-            _background_extension_update_check
-        ):
-            return True
-        bpy.app.timers.register(
-            _background_extension_update_check,
-            first_interval=_BACKGROUND_UPDATE_CHECK_DELAY,
-        )
-        return True
-    except Exception:
-        return False
+    return False
 
 
 def unregister_extension_update_check_timer() -> None:

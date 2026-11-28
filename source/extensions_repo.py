@@ -180,14 +180,7 @@ def _ensure_extension_repo_timer():
 
 
 def schedule_ensure_extension_repo() -> None:
-    global _ensure_repo_attempts
-    _ensure_repo_attempts = 0
-
-    is_registered = getattr(bpy.app.timers, "is_registered", None)
-    if callable(is_registered) and is_registered(_ensure_extension_repo_timer):
-        return
-
-    bpy.app.timers.register(_ensure_extension_repo_timer, first_interval=0.3)
+    return
 
 
 def unregister_ensure_extension_repo_timer() -> None:

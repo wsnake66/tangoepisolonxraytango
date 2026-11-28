@@ -20,6 +20,7 @@ UPDATER_MIN_VERSION = "1.0.4"
 _BOOTSTRAP_INITIAL_DELAY = 2.5
 _BOOTSTRAP_POLL_INTERVAL = 0.25
 _BOOTSTRAP_RETRY_DELAY = 5.0 * 60.0
+_DEFERRED_SUSPEND_DELAY = 0.75
 _MAX_UPDATER_ARCHIVE_BYTES = 5 * 1024 * 1024
 _STATE_LOCK = threading.Lock()
 _STATE = {
@@ -95,6 +96,21 @@ def _suspend_outdated_updater_runtime() -> None:
             unregister_runtime()
         except Exception:
             pass
+
+
+def _deferred_updater_suspend_timer() -> None:
+    _suspend_outdated_updater_runtime()
+    return None
+
+
+def _schedule_deferred_updater_suspend() -> None:
+    is_registered = getattr(bpy.app.timers, "is_registered", None)
+    if callable(is_registered) and is_registered(_deferred_updater_suspend_timer):
+        return
+    bpy.app.timers.register(
+        _deferred_updater_suspend_timer,
+        first_interval=_DEFERRED_SUSPEND_DELAY,
+    )
 
 
 def _installed_extension_repo_module() -> str:
@@ -320,24 +336,19 @@ def _updater_bootstrap_timer():
 
 
 def schedule_updater_bootstrap() -> bool:
-    if is_dev_mode() or _updater_is_current():
-        return False
-    if _updater_operator_available():
-        _suspend_outdated_updater_runtime()
-    is_registered = getattr(bpy.app.timers, "is_registered", None)
-    if callable(is_registered) and is_registered(_updater_bootstrap_timer):
-        return True
-    bpy.app.timers.register(
-        _updater_bootstrap_timer,
-        first_interval=_BOOTSTRAP_INITIAL_DELAY,
-    )
-    return True
+    _suspend_outdated_updater_runtime()
+    _schedule_deferred_updater_suspend()
+    return False
 
 
 def unregister_updater_bootstrap() -> None:
     is_registered = getattr(bpy.app.timers, "is_registered", None)
-    if callable(is_registered) and is_registered(_updater_bootstrap_timer):
-        bpy.app.timers.unregister(_updater_bootstrap_timer)
+    for timer in (
+        _updater_bootstrap_timer,
+        _deferred_updater_suspend_timer,
+    ):
+        if callable(is_registered) and is_registered(timer):
+            bpy.app.timers.unregister(timer)
     with _STATE_LOCK:
         _STATE["generation"] = int(_STATE["generation"]) + 1
         archive_path = str(_STATE.get("archive_path", ""))
