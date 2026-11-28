@@ -7269,7 +7269,7 @@ def has_cached_pro_access(context):
 
 
 class MoldboxerPanel(bpy.types.Panel):
-    bl_category = "Moldboxer"
+    bl_category = "MoldboxerPATCHED"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
 

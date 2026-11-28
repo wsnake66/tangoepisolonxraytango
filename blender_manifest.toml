@@ -1,7 +1,7 @@
 schema_version = "1.0.0"
 
 id = "moldboxer_silicone"
-name = "Moldboxer Silicone"
+name = "MoldboxerPATCHED"
 version = "999.0.0"
 
 tagline = "Generate silicone mold systems"
