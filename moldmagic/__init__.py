@@ -1,25 +1,25 @@
 import bpy
 
 from . import props as props_module
-from .generate import MOLDFORGE_OT_generate_mold
+from .generate import MOLDMAGIC_OT_generate_mold
 from .tools import (
-    MOLDFORGE_OT_analyze_undercuts,
-    MOLDFORGE_OT_casting_box,
-    MOLDFORGE_OT_export_molds,
-    MOLDFORGE_OT_hollow_shell,
+    MOLDMAGIC_OT_analyze_undercuts,
+    MOLDMAGIC_OT_casting_box,
+    MOLDMAGIC_OT_export_molds,
+    MOLDMAGIC_OT_hollow_shell,
 )
 
-MoldForgeProperties = props_module.MoldForgeProperties
+MoldMagicProperties = props_module.MoldMagicProperties
 
 
-class MOLDFORGE_PT_main(bpy.types.Panel):
-    bl_label = "MoldForge"
+class MOLDMAGIC_PT_main(bpy.types.Panel):
+    bl_label = "MoldMagic"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
-    bl_category = "MoldForge"
+    bl_category = "MoldMagic"
 
     def draw(self, context):
-        props = context.scene.moldforge
+        props = context.scene.moldmagic
         layout = self.layout
         layout.use_property_split = True
         layout.use_property_decorate = False
@@ -85,8 +85,8 @@ class MOLDFORGE_PT_main(bpy.types.Panel):
         col.enabled = props.clamp_bolt_count > 0
         col.prop(props, "clamp_bolt_diameter")
 
-        layout.operator("moldforge.analyze_undercuts", icon='VIEWZOOM')
-        layout.operator("moldforge.generate_mold", icon='MESH_CUBE')
+        layout.operator("moldmagic.analyze_undercuts", icon='VIEWZOOM')
+        layout.operator("moldmagic.generate_mold", icon='MESH_CUBE')
 
         box = layout.box()
         box.label(text="Post Steps")
@@ -95,36 +95,36 @@ class MOLDFORGE_PT_main(bpy.types.Panel):
         col = box.column()
         col.enabled = props.add_casting_box
         col.prop(props, "box_thickness")
-        col.operator("moldforge.casting_box", icon='CUBE')
+        col.operator("moldmagic.casting_box", icon='CUBE')
         col.separator()
         col.prop(props, "shell_thickness")
-        col.operator("moldforge.hollow_shell", icon='SPHERE')
+        col.operator("moldmagic.hollow_shell", icon='SPHERE')
         col.separator()
         col.prop(props, "export_format")
-        col.operator("moldforge.export_molds", icon='EXPORT')
+        col.operator("moldmagic.export_molds", icon='EXPORT')
 
 
 CLASSES = (
-    MoldForgeProperties,
-    MOLDFORGE_OT_generate_mold,
-    MOLDFORGE_OT_casting_box,
-    MOLDFORGE_OT_hollow_shell,
-    MOLDFORGE_OT_analyze_undercuts,
-    MOLDFORGE_OT_export_molds,
-    MOLDFORGE_PT_main,
+    MoldMagicProperties,
+    MOLDMAGIC_OT_generate_mold,
+    MOLDMAGIC_OT_casting_box,
+    MOLDMAGIC_OT_hollow_shell,
+    MOLDMAGIC_OT_analyze_undercuts,
+    MOLDMAGIC_OT_export_molds,
+    MOLDMAGIC_PT_main,
 )
 
 
 def register():
     props_module.register()
     for cls in CLASSES:
-        if cls is not MoldForgeProperties:
+        if cls is not MoldMagicProperties:
             bpy.utils.register_class(cls)
 
 
 def unregister():
     for cls in reversed(CLASSES):
-        if cls is not MoldForgeProperties:
+        if cls is not MoldMagicProperties:
             bpy.utils.unregister_class(cls)
     props_module.unregister()
 

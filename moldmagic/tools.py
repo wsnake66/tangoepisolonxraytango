@@ -14,17 +14,17 @@ from .core import (
 )
 
 
-class MOLDFORGE_OT_casting_box(bpy.types.Operator):
-    bl_idname = "moldforge.casting_box"
+class MOLDMAGIC_OT_casting_box(bpy.types.Operator):
+    bl_idname = "moldmagic.casting_box"
     bl_label = "Casting Box"
     bl_description = "Generate a rigid casting box around the selected mold parts"
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
-        props = context.scene.moldforge
+        props = context.scene.moldmagic
         parts = [
             obj for obj in context.selected_objects
-            if obj.type == 'MESH' and obj.name.startswith("MoldForge_")
+            if obj.type == 'MESH' and obj.name.startswith("MoldMagic_")
         ]
         if not parts:
             self.report({'ERROR'}, "Select the generated mold parts first.")
@@ -39,9 +39,9 @@ class MOLDFORGE_OT_casting_box(bpy.types.Operator):
         thickness = props.box_thickness
         outer_min = mins - Vector((thickness, thickness, thickness))
         outer_max = maxs + Vector((thickness, thickness, max(thickness, 2.0)))
-        box = box_object("MoldForge_CastingBox", outer_min, outer_max)
+        box = box_object("MoldMagic_CastingBox", outer_min, outer_max)
         inner = box_object(
-            "MoldForge_CastingBoxWindow", mins, maxs
+            "MoldMagic_CastingBoxWindow", mins, maxs
         )
         apply_boolean(box, inner, 'DIFFERENCE')
         remove(inner)
@@ -54,7 +54,7 @@ class MOLDFORGE_OT_casting_box(bpy.types.Operator):
             for sign_y in (-1, 1):
                 center = (mins + maxs) / 2
                 hole = add_cylinder(
-                    context, "MoldForge_BoxBolt",
+                    context, "MoldMagic_BoxBolt",
                     (
                         center.x + sign_x * (maxs.x - mins.x) / 2 + sign_x * (thickness / 2),
                         center.y + sign_y * (maxs.y - mins.y) / 2 + sign_y * (thickness / 2),
@@ -67,18 +67,18 @@ class MOLDFORGE_OT_casting_box(bpy.types.Operator):
 
         box.select_set(True)
         bpy.context.view_layer.objects.active = box
-        self.report({'INFO'}, "MoldForge: casting box generated.")
+        self.report({'INFO'}, "MoldMagic: casting box generated.")
         return {'FINISHED'}
 
 
-class MOLDFORGE_OT_hollow_shell(bpy.types.Operator):
-    bl_idname = "moldforge.hollow_shell"
+class MOLDMAGIC_OT_hollow_shell(bpy.types.Operator):
+    bl_idname = "moldmagic.hollow_shell"
     bl_label = "Hollow Shell"
     bl_description = "Create a hollow shelled copy of the active object"
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
-        props = context.scene.moldforge
+        props = context.scene.moldmagic
         target = selected_target(context)
         if target is None:
             self.report({'ERROR'}, "Select a mesh object to shell.")
@@ -101,7 +101,7 @@ class MOLDFORGE_OT_hollow_shell(bpy.types.Operator):
         bm.free()
         shell.data.update()
 
-        modifier = shell.modifiers.new(name="MoldForge_Shell", type='SOLIDIFY')
+        modifier = shell.modifiers.new(name="MoldMagic_Shell", type='SOLIDIFY')
         modifier.thickness = props.shell_thickness
         modifier.offset = -1.0
         with bpy.context.temp_override(
@@ -116,12 +116,12 @@ class MOLDFORGE_OT_hollow_shell(bpy.types.Operator):
             obj.select_set(False)
         shell.select_set(True)
         bpy.context.view_layer.objects.active = shell
-        self.report({'INFO'}, "MoldForge: hollow shell created.")
+        self.report({'INFO'}, "MoldMagic: hollow shell created.")
         return {'FINISHED'}
 
 
-class MOLDFORGE_OT_analyze_undercuts(bpy.types.Operator):
-    bl_idname = "moldforge.analyze_undercuts"
+class MOLDMAGIC_OT_analyze_undercuts(bpy.types.Operator):
+    bl_idname = "moldmagic.analyze_undercuts"
     bl_label = "Analyze Split Height"
     bl_description = "Find the object height with the widest cross-section"
     bl_options = {'REGISTER', 'UNDO'}
@@ -179,36 +179,36 @@ class MOLDFORGE_OT_analyze_undercuts(bpy.types.Operator):
         if best_z is None or best_width <= 0:
             self.report(
                 {'WARNING'},
-                "MoldForge: could not measure cross-sections; is the object closed?",
+                "MoldMagic: could not measure cross-sections; is the object closed?",
             )
             return {'CANCELLED'}
 
-        props = context.scene.moldforge
+        props = context.scene.moldmagic
         recommended = (best_z - mins.z) / height
         props.split_position = min(max(recommended, 0.05), 0.95)
         self.report(
             {'INFO'},
-            "MoldForge: widest section at {:.0f}% height (width {:.1f} mm); split height updated.".format(
+            "MoldMagic: widest section at {:.0f}% height (width {:.1f} mm); split height updated.".format(
                 recommended * 100.0, best_width
             ),
         )
         return {'FINISHED'}
 
 
-class MOLDFORGE_OT_export_molds(bpy.types.Operator):
-    bl_idname = "moldforge.export_molds"
+class MOLDMAGIC_OT_export_molds(bpy.types.Operator):
+    bl_idname = "moldmagic.export_molds"
     bl_label = "Export Mold Parts"
-    bl_description = "Export the generated MoldForge parts"
+    bl_description = "Export the generated MoldMagic parts"
     bl_options = {'REGISTER'}
 
     def execute(self, context):
-        props = context.scene.moldforge
+        props = context.scene.moldmagic
         parts = [
             obj for obj in context.selected_objects
-            if obj.type == 'MESH' and obj.name.startswith("MoldForge_")
+            if obj.type == 'MESH' and obj.name.startswith("MoldMagic_")
         ]
         if not parts:
-            self.report({'ERROR'}, "Select MoldForge parts to export.")
+            self.report({'ERROR'}, "Select MoldMagic parts to export.")
             return {'CANCELLED'}
 
         for obj in bpy.context.selected_objects:
@@ -236,11 +236,11 @@ class MOLDFORGE_OT_export_molds(bpy.types.Operator):
                     )
                 exported.append(filepath)
         except Exception as error:
-            self.report({'ERROR'}, "MoldForge: export failed: {}".format(error))
+            self.report({'ERROR'}, "MoldMagic: export failed: {}".format(error))
             return {'CANCELLED'}
 
         self.report(
             {'INFO'},
-            "MoldForge: exported {} file(s).".format(len(exported)),
+            "MoldMagic: exported {} file(s).".format(len(exported)),
         )
         return {'FINISHED'}

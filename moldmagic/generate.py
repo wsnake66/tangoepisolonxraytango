@@ -23,13 +23,13 @@ def _split_into_parts(context, block, outer_min, outer_max, planes):
     cutters = []
     for index, plane_z in enumerate(list(planes) + [outer_max.z]):
         cutter = box_object(
-            "MoldForge_Cutter",
+            "MoldMagic_Cutter",
             Vector((outer_min.x, outer_min.y, previous_z)),
             Vector((outer_max.x, outer_max.y, plane_z)),
         )
         part = block.copy()
         part.data = block.data.copy()
-        part.name = f"MoldForge_Part_{index:02d}"
+        part.name = f"MoldMagic_Part_{index:02d}"
         bpy.context.collection.objects.link(part)
         apply_boolean(part, cutter, 'INTERSECT')
         parts.append(part)
@@ -58,13 +58,13 @@ def _add_interface_keys(context, props, lower, upper, mins, maxs, plane_z):
                 plane_z,
             )
             boss = add_cylinder(
-                context, "MoldForge_KeyBoss",
+                context, "MoldMagic_KeyBoss",
                 location, props.key_radius, props.key_height * 2,
             )
             apply_boolean(lower, boss, 'UNION')
             remove(boss)
             socket = add_cylinder(
-                context, "MoldForge_KeySocket",
+                context, "MoldMagic_KeySocket",
                 location, props.key_radius + props.key_tolerance,
                 span + 1.0,
             )
@@ -75,7 +75,7 @@ def _add_interface_keys(context, props, lower, upper, mins, maxs, plane_z):
         center = (mins + maxs) / 2
         height = props.key_height * 2 + props.master_pin_tolerance * 2
         pin = add_cone(
-            context, "MoldForge_MasterPin",
+            context, "MoldMagic_MasterPin",
             (center.x, center.y, plane_z),
             props.master_pin_radius + props.master_pin_tolerance,
             props.master_pin_radius + props.master_pin_tolerance,
@@ -84,7 +84,7 @@ def _add_interface_keys(context, props, lower, upper, mins, maxs, plane_z):
         apply_boolean(lower, pin, 'UNION')
         remove(pin)
         socket = add_cylinder(
-            context, "MoldForge_MasterSocket",
+            context, "MoldMagic_MasterSocket",
             (center.x, center.y, plane_z),
             props.master_pin_radius + props.master_pin_tolerance * 2,
             height + 1.0,
@@ -109,7 +109,7 @@ def _add_pouring(context, props, part, mins, maxs, outer_min, outer_max):
             (top_z + bottom_z) / 2,
         )
         cone = add_cone(
-            context, "MoldForge_Funnel",
+            context, "MoldMagic_Funnel",
             location, props.funnel_bottom_radius, props.funnel_top_radius, depth,
         )
         apply_boolean(part, cone, 'DIFFERENCE')
@@ -127,7 +127,7 @@ def _add_pouring(context, props, part, mins, maxs, outer_min, outer_max):
                 (top_z + bottom_z) / 2,
             )
             vent = add_cylinder(
-                context, "MoldForge_Vent", location, props.vent_radius, depth
+                context, "MoldMagic_Vent", location, props.vent_radius, depth
             )
             apply_boolean(part, vent, 'DIFFERENCE')
             remove(vent)
@@ -153,7 +153,7 @@ def _add_channels(context, props, part, mins, maxs, outer_min, outer_max, plane_
         start = Vector((center.x, center.y, plane_z)) + Vector(direction) * (inner - 1.0)
         location = start + Vector(direction) * (length / 2)
         channel = add_cylinder(
-            context, "MoldForge_Channel",
+            context, "MoldMagic_Channel",
             location, props.channel_radius, length + 2.0, rotation=rotation,
         )
         apply_boolean(part, channel, 'DIFFERENCE')
@@ -187,7 +187,7 @@ def _add_clamp_bolts(context, props, parts, mins, maxs, outer_min, outer_max):
     radius = props.clamp_bolt_diameter / 2
     for offset_x, offset_y in corners:
         hole = add_cylinder(
-            context, "MoldForge_BoltHole",
+            context, "MoldMagic_BoltHole",
             (center.x + offset_x, center.y + offset_y, center_z),
             radius, depth,
         )
@@ -208,7 +208,7 @@ def _add_feet(context, props, part, mins, maxs, outer_min, outer_max):
     for sign_x in (-1, 1):
         for sign_y in (-1, 1):
             foot = add_cylinder(
-                context, "MoldForge_Foot",
+                context, "MoldMagic_Foot",
                 (center.x + sign_x * inset_x, center.y + sign_y * inset_y, z),
                 radius, radius,
             )
@@ -225,7 +225,7 @@ def _add_grips(context, props, part, mins, maxs, outer_min, outer_max, plane_z):
     depth = props.grip_depth + props.wall_thickness + props.wall_gap + 1.0
     for sign in (-1, 1):
         notch = box_object(
-            "MoldForge_Grip",
+            "MoldMagic_Grip",
             Vector((center.x - half_width, center.y + sign * (size.y / 2 + props.wall_gap), plane_z - props.grip_width)),
             Vector((center.x + half_width, center.y + sign * (size.y / 2 + props.wall_gap + depth), plane_z + props.grip_width)),
         )
@@ -234,9 +234,9 @@ def _add_grips(context, props, part, mins, maxs, outer_min, outer_max, plane_z):
 
 
 def _make_fixture_frame(context, props, mins, maxs, outer_min, outer_max):
-    frame = box_object("MoldForge_Fixture", outer_min, outer_max)
+    frame = box_object("MoldMagic_Fixture", outer_min, outer_max)
     window = box_object(
-        "MoldForge_FixtureWindow",
+        "MoldMagic_FixtureWindow",
         Vector((mins.x - props.wall_gap, mins.y - props.wall_gap, outer_min.z - 1.0)),
         Vector((maxs.x + props.wall_gap, maxs.y + props.wall_gap, outer_max.z + 1.0)),
     )
@@ -245,14 +245,14 @@ def _make_fixture_frame(context, props, mins, maxs, outer_min, outer_max):
     return frame
 
 
-class MOLDFORGE_OT_generate_mold(bpy.types.Operator):
-    bl_idname = "moldforge.generate_mold"
+class MOLDMAGIC_OT_generate_mold(bpy.types.Operator):
+    bl_idname = "moldmagic.generate_mold"
     bl_label = "Generate Mold"
     bl_description = "Generate a mold around the active mesh object"
     bl_options = {'REGISTER', 'UNDO'}
 
     def execute(self, context):
-        props = context.scene.moldforge
+        props = context.scene.moldmagic
         target = selected_target(context)
         if target is None:
             self.report({'ERROR'}, "Select a mesh object to mold.")
@@ -278,10 +278,10 @@ class MOLDFORGE_OT_generate_mold(bpy.types.Operator):
             for obj in parts:
                 obj.select_set(True)
             bpy.context.view_layer.objects.active = parts[0]
-            self.report({'INFO'}, "MoldForge: fixture frame generated.")
+            self.report({'INFO'}, "MoldMagic: fixture frame generated.")
             return {'FINISHED'}
 
-        block = box_object("MoldForge_Mold", outer_min, outer_max)
+        block = box_object("MoldMagic_Mold", outer_min, outer_max)
         helpers.append(block)
         apply_boolean(block, target, 'DIFFERENCE')
 
@@ -323,11 +323,11 @@ class MOLDFORGE_OT_generate_mold(bpy.types.Operator):
         bpy.context.view_layer.objects.active = parts[0]
 
         if props.add_casting_box:
-            bpy.ops.moldforge.casting_box('INVOKE_DEFAULT')
+            bpy.ops.moldmagic.casting_box('INVOKE_DEFAULT')
 
         self.report(
             {'INFO'},
-            "MoldForge: {} with {} part(s) generated.".format(
+            "MoldMagic: {} with {} part(s) generated.".format(
                 props.mold_preset.replace('_', ' ').title(), len(parts)
             ),
         )

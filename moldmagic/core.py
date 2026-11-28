@@ -50,7 +50,7 @@ def box_object(name, mins, maxs):
 
 
 def _round_verts(context):
-    props = context.scene.moldforge
+    props = context.scene.moldmagic
     return QUALITY_VERTS.get(props.quality, 48)
 
 
@@ -81,7 +81,7 @@ def add_cone(context, name, location, radius_base, radius_top, depth):
 
 
 def apply_boolean(target_obj, operand, operation):
-    modifier = target_obj.modifiers.new(name="moldforge_bool", type='BOOLEAN')
+    modifier = target_obj.modifiers.new(name="moldmagic_bool", type='BOOLEAN')
     modifier.operation = operation
     modifier.solver = 'EXACT'
     modifier.object = operand

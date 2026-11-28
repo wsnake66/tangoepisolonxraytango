@@ -1,4 +1,4 @@
-# MoldForge
+# MoldMagic
 
 Offline, open-source silicone mold system generator for Blender 4.2+. No
 account, no login, no network access — ever.
@@ -24,18 +24,18 @@ account, no login, no network access — ever.
 
 ## Install
 
-1. Zip the `moldforge/` folder contents (select the files inside the folder,
+1. Zip the `moldmagic/` folder contents (select the files inside the folder,
    not the folder itself) or copy the folder to your Blender extensions
-   directory (`.../Blender/4.2/extensions/user_default/moldforge/`).
-2. Enable **MoldForge** in Edit > Preferences > Add-ons.
-3. Open the N-panel in the 3D viewport → **MoldForge** tab.
+   directory (`.../Blender/4.2/extensions/user_default/moldmagic/`).
+2. Enable **MoldMagic** in Edit > Preferences > Add-ons.
+3. Open the N-panel in the 3D viewport → **MoldMagic** tab.
 
 ## Usage
 
 1. Select a mesh object.
 2. Pick a preset, adjust parameters (or press **Analyze Split Height** to
    auto-place the split).
-3. Press **Generate Mold**. Parts are created as `MoldForge_Part_XX`.
+3. Press **Generate Mold**. Parts are created as `MoldMagic_Part_XX`.
 4. Optionally add a **Casting Box**, **Hollow Shell**, or **Export**.
 
 ## License

@@ -63,7 +63,7 @@ def _update_mold_preset(self, context):
             setattr(self, name, value)
 
 
-class MoldForgeProperties(bpy.types.PropertyGroup):
+class MoldMagicProperties(bpy.types.PropertyGroup):
     mold_preset: bpy.props.EnumProperty(
         name="Preset",
         description="Mold style preset",
@@ -289,12 +289,12 @@ class MoldForgeProperties(bpy.types.PropertyGroup):
 
 
 def register():
-    bpy.utils.register_class(MoldForgeProperties)
-    bpy.types.Scene.moldforge = bpy.props.PointerProperty(
-        type=MoldForgeProperties
+    bpy.utils.register_class(MoldMagicProperties)
+    bpy.types.Scene.moldmagic = bpy.props.PointerProperty(
+        type=MoldMagicProperties
     )
 
 
 def unregister():
-    del bpy.types.Scene.moldforge
-    bpy.utils.unregister_class(MoldForgeProperties)
+    del bpy.types.Scene.moldmagic
+    bpy.utils.unregister_class(MoldMagicProperties)

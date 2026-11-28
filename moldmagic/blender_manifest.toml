@@ -1,13 +1,13 @@
 schema_version = "1.0.0"
 
-id = "moldforge"
-name = "MoldForge"
+id = "moldmagic"
+name = "MoldMagic"
 version = "0.2.0"
 
 tagline = "Offline silicone mold system generator"
 description = "Generate two-part silicone mold boxes with keys, funnel, and vents. Fully offline."
 
-maintainer = "MoldForge Contributors"
+maintainer = "MoldMagic Contributors"
 type = "add-on"
 
 license = ["GPL-3.0-or-later"]
