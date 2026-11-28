@@ -111,13 +111,7 @@ def is_core_tier() -> bool:
 
 
 def has_export_access() -> bool:
-    prefs = get_addon_preferences()
-    if prefs is None:
-        return True
-    stripe_status = str(getattr(prefs, "auth_stripe_status", ""))
-    if not is_free_trial_status(stripe_status):
-        return True
-    return get_trial_exports_remaining(prefs) > 0
+    return True
 
 
 def has_pro_server_access() -> bool:
