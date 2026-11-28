@@ -1,16 +1,26 @@
 # MoldForge
 
-Offline, open-source silicone mold box generator for Blender 4.2+. No account,
-no login, no network access — ever.
+Offline, open-source silicone mold system generator for Blender 4.2+. No
+account, no login, no network access — ever.
 
-## Features (v0.1)
+## Features (v0.2)
 
-- One-click mold box around any mesh object (configurable gap and wall thickness)
-- Two-part split mold with a height-adjustable split plane
-- Circular registration keys with matching sockets and adjustable tolerance
-- Pour funnel reaching into the cavity
-- Air vents
-- One-piece mold mode
+- Mold presets: silicone two-part, silicone one-piece, protective shell,
+  fixture frame, plaster mold, slip casting box
+- Quality setting (LOW / MID / HIGH) controlling round-feature resolution
+- One-click mold generation with configurable gap and wall thickness
+- Multi-part stacked molds (up to 5 parts via extra splits)
+- Registration keys per interface with tolerance, automatic or manual ring
+- Master base pin (center cone alignment) with socket
+- Up to 3 pour funnels reaching into the cavity
+- Air vents and horizontal channel grooves (plaster/slip casting)
+- Casting feet, grip notches, clamp bolt holes through all parts
+- Rigid casting box generation with bolt holes
+- Hollow shell creation (solidify based)
+- Split-height analysis: raycast cross-section scan finds the widest
+  section and sets the split height automatically
+- Batch export to STL / OBJ / glTF
+- Full Blender UNDO support; original object is never modified
 
 ## Install
 
@@ -23,19 +33,10 @@ no login, no network access — ever.
 ## Usage
 
 1. Select a mesh object.
-2. Set gap, wall thickness, split position, and key/funnel parameters.
-3. Press **Generate Mold**. The two halves are created as
-   `MoldForge_TopHalf` / `MoldForge_BottomHalf`.
-
-The original object is never modified.
-
-## Roadmap
-
-- Multi-object cavities in a single mold
-- Casting box generation around the finished mold
-- Hollow shell generation via solidify
-- Simple heuristic undercut analysis (raycast based)
-- Batch export to STL/3MF
+2. Pick a preset, adjust parameters (or press **Analyze Split Height** to
+   auto-place the split).
+3. Press **Generate Mold**. Parts are created as `MoldForge_Part_XX`.
+4. Optionally add a **Casting Box**, **Hollow Shell**, or **Export**.
 
 ## License
 
