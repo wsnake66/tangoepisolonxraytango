@@ -103,31 +103,18 @@ def get_auth_tier() -> str:
 
 
 def is_lite_tier() -> bool:
-    return get_auth_tier() in LITE_TIERS
+    return False
 
 
 def is_core_tier() -> bool:
-    return get_auth_tier() in {"T1", "T2"}
+    return False
 
 
 def has_export_access() -> bool:
-    prefs = get_addon_preferences()
-    if prefs is None:
-        return True
-    stripe_status = str(getattr(prefs, "auth_stripe_status", ""))
-    if not is_free_trial_status(stripe_status):
-        return True
-    return get_trial_exports_remaining(prefs) > 0
+    return True
 
 
 def has_pro_server_access() -> bool:
-    prefs = get_addon_preferences()
-    if prefs is None:
-        return False
-    if not getattr(prefs, "auth_refresh_token", ""):
-        return False
-    if str(getattr(prefs, "auth_tier", "")).upper() != "T3":
-        return False
     return True
 
 
@@ -138,31 +125,18 @@ def has_pro_or_trial_server_access() -> bool:
 
 
 def has_basic_server_access() -> bool:
-    if not has_active_server_access():
-        return False
-    return get_auth_tier() in {"T1", "T2", "T3"}
+    return True
 
 
 def has_active_server_access() -> bool:
-    prefs = get_addon_preferences()
-    if prefs is None:
-        return False
-    if not getattr(prefs, "auth_refresh_token", ""):
-        return False
-
-    # A saved session can recover even when the cached logged-in flag is stale.
-    # Keep UI/operator preflight checks local and deterministic. The protected
-    # geometry worker obtains a short-lived, server-signed capability grant
-    # before executing licensed commands, so this durable-session check does
-    # not weaken enforcement. Performing that network handshake here made a
-    # token refresh race or transient worker failure indistinguishable from a
-    # logged-out/unlicensed account and repeatedly opened the auth dialog.
     return True
 
 
 def show_active_membership_required(operator: bpy.types.Operator) -> None:
-    operator.report({"WARNING"}, t("License required"))
-    _invoke_access_dialog_once("silicone.auth_required_dialog")
+    operator.report(
+        {"WARNING"},
+        t("This operation requires the licensed Moldboxer Worker engine."),
+    )
 
 
 def show_basic_membership_required() -> None:
@@ -188,17 +162,7 @@ def _release_access_dialog_lock(dialog_idname: str):
 def _invoke_access_dialog_once(
     dialog_idname: str, cooldown_seconds: float = 0.35
 ) -> None:
-    if _ACCESS_DIALOG_LOCKS.get(dialog_idname, False):
-        return
-    _ACCESS_DIALOG_LOCKS[dialog_idname] = True
-    try:
-        module_name, operator_name = dialog_idname.split(".", 1)
-        getattr(getattr(bpy.ops, module_name), operator_name)("INVOKE_DEFAULT")
-    finally:
-        bpy.app.timers.register(
-            _release_access_dialog_lock(dialog_idname),
-            first_interval=cooldown_seconds,
-        )
+    return
 
 
 def apply_lite_access_defaults(scene: bpy.types.Scene | None) -> None:
